@@ -37,7 +37,7 @@ OUTPUT_HTML_FILE = 'index.html'
 MAX_ITEMS=5 # gets the first 5 entries for each RSS
 
 # Function to get the RSS Feeds
-def get_rss_feeds(RSS_FEEDS: dict) -> list[tuple[str, FeedParserDict]]: 
+def get_rss_feeds(RSS_FEEDS: dict) -> list[tuple[str, dict]]: 
     feeds = []
     # loops to find the name and url from the RSS feeds
     for name, url in RSS_FEEDS.items():
