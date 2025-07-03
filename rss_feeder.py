@@ -1,5 +1,7 @@
 import feedparser
 from datetime import datetime
+from typing import List, Tuple
+from feedparser import FeedParserDict
 
 RSS_FEEDS = {
     'Risky Business': "http://risky.biz/feeds/risky-business-news/",
@@ -29,3 +31,125 @@ RSS_FEEDS = {
     "CISO Series": 'https://cisoseries.libsyn.com/rss',
     'CS Hub': 'https://www.cshub.com/rss/articles',
 }
+
+SITE_TITLE = 'RSS News Aggregator'
+OUTPUT_HTML_FILE = 'index.html'
+MAX_ITEMS=5 # gets the first 5 entries for each RSS
+
+# Function to get the RSS Feeds
+def get_rss_feeds(RSS_FEEDS: dict) -> List[tuple[str, FeedParserDict]]: 
+    feeds = []
+    # loops to find the name and url from the RSS feeds
+    for name, url in RSS_FEEDS.items():
+        # if successful
+        try:
+            # parses the url
+            feed = feedparser.parse(url)
+            # appends the name and feed
+            feeds.append((name, feed))
+        except Exception as e:
+            # if not successful
+            print(f"Error parsing {url}: {e}")
+    return feeds
+
+# Function that generates the HTML and CSS for the website
+def html_generator(feeds: List[tuple[str, FeedParserDict]]) -> str:
+    head = f"""<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset=UTF-8>
+        <title>{SITE_TITLE}</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                padding: 20px;
+            }}
+            .container {{
+                max-width: 900px;
+                margin: auto;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+            }}
+            .entry {{
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }}
+            .entry h2 {{
+                margin: 0 0 10px;
+            }}
+            .entry a {{
+                text-decoration: none;
+                color: #333;
+            }}
+            .entry a:hover {{
+                color: #0077cc;
+            }}
+            .date {{
+                color: #888;
+                font-size: 0.9em;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{SITE_TITLE}</h1>
+            <p>Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+    """
+    body_parts = []
+    # loops through the RSS feeds
+    for feed_name, feed in feeds:
+        section = [f"<h2>{feed_name}</h2>"]
+        # loop that gets first 5 entires for each
+        for entry in feed.entries[:MAX_ITEMS]:
+            # gets the title
+            title = entry.get("title", "No Title")
+            # gets the link
+            link = entry.get("link", "#")
+            # gets the published date
+            published = entry.get("published", "No Date")
+            # CSS code that generates the HTML
+            section.append(f"""
+                <div class='entry'>
+                    <h2><a href='{link}'>{title}</a></h2>
+                    <p class='date'>{published}</p>
+                </div>
+            """)
+        # appends the section
+        body_parts.append('\n'.join(section))
+
+    footer = """
+        </div>
+    </body>
+</html>
+    """
+    # joins the HTML code
+    html_body = '\n'.join(body_parts) if body_parts else "<p>No entries found.</p>"
+    # returns the HTML
+    return f"{head}{html_body}{footer}"
+
+# function to save the HTML file
+def save_html(content: str, filename: str) -> None:
+    try:
+        # write the content to the file
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"HTML file generated: {filename}")
+    except IOError as e:
+        print(f"Error saving HTML file: {e}")
+
+def main():
+    try:
+        # get the RSS Feeds
+        feeds = get_rss_feeds(RSS_FEEDS)
+        # generate the HTML
+        html_content = html_generator(feeds)
+        # save the HTML
+        save_html(html_content, OUTPUT_HTML_FILE)
+    except IOError as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()
