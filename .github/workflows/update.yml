@@ -30,7 +30,7 @@ jobs:
           git config user.email "github-actions@github.com"
           git add index.html
           git commit -m "Daily RSS Update" || echo "No changes to commit"
-          git push https://${RSS_FEEDER_GITHUB_TOKEN}@github.com/JWT890/rss-python-feeder2.git
+          git push https://github-actions:${RSS_FEEDER_GITHUB_TOKEN}@github.com/JWT890/rss-python-feeder2.git
         shell: /usr/bin/bash -e {0}
         env:
           RSS_FEEDER_GITHUB_TOKEN: ${{ secrets.RSS_FEEDER_TOKEN }}
