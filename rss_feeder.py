@@ -53,7 +53,7 @@ def get_rss_feeds(RSS_FEEDS: dict) -> list[tuple[str, FeedParserDict]]:
     return feeds
 
 # Function that generates the HTML and CSS for the website
-def html_generator(feeds: List[tuple[str, FeedParserDict]]) -> str:
+def html_generator(feeds: list[tuple[str, dict]]) -> str:
     head = f"""<!DOCTYPE html>
     <html lang="en">
     <head>
