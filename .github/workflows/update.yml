@@ -1,6 +1,9 @@
 name: Update RSS Feed HTML
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0,30 * * * *'
 
@@ -13,6 +16,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          persistent-credentials: false
+      
+      - name: Debug Check
+        run: echo "Github Actions workflow started"
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -38,9 +46,9 @@ jobs:
 
       - name: Push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RSS_FEEDER_GITHUB_TOKEN }}
         run: |
            # Re-point origin to use the GITHUB_TOKEN
-           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/JWT890/rss-python-feeder2.git
+           git remote set-url origin https://x-access-token:${{ secrets.RSS_FEEDER_GITHUB_TOKEN }}@github.com/JWT890/rss-python-feeder2.git
            git push origin main
 
