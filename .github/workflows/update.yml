@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
     
 jobs:
   update:
@@ -36,7 +38,7 @@ jobs:
 
       - name: Configure Git
         run: | 
-          git config user.name "github-actions" &&
+          git config user.name "github-actions"
           git config user.email "github-actions@github.com"
         shell: bash
 
@@ -52,4 +54,21 @@ jobs:
            # Re-point origin to use the GITHUB_TOKEN
            git remote set-url origin https://x-access-token:${{ secrets.RSS_FEEDER_GITHUB_TOKEN }}@github.com/JWT890/rss-python-feeder2.git
            git push origin main
+
+      - name: Upload artifact for GitHub pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'index.html'
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
 
