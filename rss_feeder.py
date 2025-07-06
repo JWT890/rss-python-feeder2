@@ -7,6 +7,8 @@ RSS_FEEDS = {
     'Risky Business': "http://risky.biz/feeds/risky-business-news/",
     'ESPN': "https://www.espn.com/espn/rss/news",
     'HNRSS': "https://hnrss.org/frontpage",
+    'The Hacker News': 'https://feeds.feedburner.com/TheHackersNews',
+    'thaddeus grugq newsletter': 'https://buttondown.com/grugq/rss',
     'SANS Daily': "https://isc.sans.edu/dailypodcast.xml",
     'SANS Education': "https://isc.sans.edu/rssfeed.xml",
     'Microsoft Blog': "https://msrc.microsoft.com/blog/categories/security-research-defense/feed",
@@ -30,6 +32,9 @@ RSS_FEEDS = {
     "Politico Cybersecurity": "https://rss.politico.com/morningcybersecurity.xml",
     "CISO Series": 'https://cisoseries.libsyn.com/rss',
     'CS Hub': 'https://www.cshub.com/rss/articles',
+    'Mens College Basketball': 'https://www.ncaa.com/news/basketball-men/d1/rss.xml',
+    'FBS Football': 'https://www.ncaa.com/news/football/fbs/rss.xml',
+    'Graham Cluey': 'https://grahamcluley.com/feed/'
 }
 
 SITE_TITLE = 'RSS News Aggregator'
