@@ -15,6 +15,7 @@ RSS_FEEDS = {
     'Darknet Diaries': "https://www.darknet.org.uk/feed/",
     'Krebs on Security': "https://krebsonsecurity.com/feed/",
     'Security Magazine': "https://www.securitymagazine.com/rss/15",
+    'CVE Feed': 'https://cvefeed.io/rssfeed/newsroom.xml',
     'CISA News': "https://www.cisa.gov/news.xml",
     'CISA Blog': "https://www.cisa.gov/blog.xml",
     'CISA Cyber Advisory': "https://www.cisa.gov/cybersecurity-advisories/all.xml",
