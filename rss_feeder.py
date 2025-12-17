@@ -12,6 +12,7 @@ RSS_FEEDS = {
     'SANS Daily': "https://isc.sans.edu/dailypodcast.xml",
     'SANS Education': "https://isc.sans.edu/rssfeed.xml",
     'Microsoft Blog': "https://msrc.microsoft.com/blog/categories/security-research-defense/feed",
+    'Seclists': "https://seclists.org/rss/fulldisclosure.rss",
     'Darknet Diaries': "https://www.darknet.org.uk/feed/",
     'Krebs on Security': "https://krebsonsecurity.com/feed/",
     'Security Magazine': "https://www.securitymagazine.com/rss/15",
